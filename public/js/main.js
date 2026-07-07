@@ -1,4 +1,4 @@
-// Load apps from server
+// ============ LOAD APPS FROM SERVER ============
 async function loadApps() {
     try {
         const response = await fetch('/api/apps');
@@ -7,11 +7,11 @@ async function loadApps() {
     } catch (error) {
         console.error('Error loading apps:', error);
         document.getElementById('appsContainer').innerHTML = 
-            '<p style="text-align:center;color:#e74c3c;">❌ Failed to load apps. Please refresh.</p>';
+            '<p style="text-align:center;color:#e74c3c;padding:40px;">❌ Failed to load apps. Please refresh.</p>';
     }
 }
 
-// Display apps
+// ============ DISPLAY APPS ============
 function displayApps(apps) {
     const container = document.getElementById('appsContainer');
     container.innerHTML = apps.map(app => `
@@ -27,7 +27,7 @@ function displayApps(apps) {
     `).join('');
 }
 
-// Buy button - Initialize Paystack Payment
+// ============ BUY APP - PAYSTACK PAYMENT ============
 async function buyApp(appId, appName, price) {
     // Show loading state
     const buttons = document.querySelectorAll('.btn-buy');
@@ -85,8 +85,6 @@ async function buyApp(appId, appName, price) {
     }
 }
 
-// Load apps when page loads
-document.addEventListener('DOMContentLoaded', loadApps);
 // ============ CONTACT FORM ============
 function sendMessage(event) {
     event.preventDefault();
@@ -95,6 +93,13 @@ function sendMessage(event) {
     const email = document.getElementById('email').value;
     const message = document.getElementById('message').value;
     const statusEl = document.getElementById('formStatus');
+    
+    // Validate
+    if (!name || !email || !message) {
+        statusEl.style.color = '#e74c3c';
+        statusEl.textContent = '⚠️ Please fill in all fields.';
+        return;
+    }
     
     // Show loading
     statusEl.style.color = '#667eea';
@@ -114,3 +119,43 @@ function sendMessage(event) {
         }, 5000);
     }, 1500);
 }
+
+// ============ SMOOTH SCROLL FOR NAVIGATION ============
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// ============ NAVBAR SCROLL EFFECT ============
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.style.boxShadow = '0 2px 30px rgba(0,0,0,0.15)';
+    } else {
+        navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+    }
+});
+
+// ============ LOAD APPS WHEN PAGE LOADS ============
+document.addEventListener('DOMContentLoaded', loadApps);
+
+// ============ KEYBOARD SHORTCUT: ESC TO CLOSE ANY MODAL ============
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('checkoutModal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+});
+
+console.log('🚀 StarTech Africa - Website Loaded Successfully!');
+console.log('📱 Visit: https://startechafrica.co.ke');
