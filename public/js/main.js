@@ -87,3 +87,30 @@ async function buyApp(appId, appName, price) {
 
 // Load apps when page loads
 document.addEventListener('DOMContentLoaded', loadApps);
+// ============ CONTACT FORM ============
+function sendMessage(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    const statusEl = document.getElementById('formStatus');
+    
+    // Show loading
+    statusEl.style.color = '#667eea';
+    statusEl.textContent = '⏳ Sending message...';
+    
+    // Simulate sending (you can connect to a real email service later)
+    setTimeout(() => {
+        statusEl.style.color = '#2ecc71';
+        statusEl.textContent = `✅ Thank you ${name}! Your message has been sent. We'll get back to you soon.`;
+        
+        // Clear form
+        document.getElementById('contactForm').reset();
+        
+        // Reset after 5 seconds
+        setTimeout(() => {
+            statusEl.textContent = '';
+        }, 5000);
+    }, 1500);
+}
