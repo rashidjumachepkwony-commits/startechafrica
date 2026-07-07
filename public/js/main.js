@@ -159,3 +159,16 @@ document.addEventListener('keydown', function(e) {
 
 console.log('🚀 StarTech Africa - Website Loaded Successfully!');
 console.log('📱 Visit: https://startechafrica.co.ke');
+// ============ VIDEO PLACEHOLDER CLICK ============
+document.querySelectorAll('.video-placeholder').forEach(video => {
+    video.addEventListener('click', function() {
+        alert('🎥 Video demo coming soon!\n\nYou can replace this with your actual YouTube/Vimeo video.');
+    });
+});
+
+// ============ SCREENSHOT CLICK ============
+document.querySelectorAll('.screenshot-card').forEach(screenshot => {
+    screenshot.addEventListener('click', function() {
+        alert('📸 Screenshot preview coming soon!\n\nYou can replace this with your actual app screenshots.');
+    });
+});
